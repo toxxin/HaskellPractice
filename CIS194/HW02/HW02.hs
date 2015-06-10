@@ -53,31 +53,38 @@ matches code1 code2 = go 0 (countColors code1) (countColors code2)
           | x <= y = go (acc+x) xs ys
           | otherwise = go (acc+y) xs ys
 
---  where go :: [Int] -> [Int] -> Int
---        go [] [] = acc
---        go (x:xs) (y:ys)
---          | min x y go 
-
 -- Exercise 3 -----------------------------------------
 
 -- Construct a Move from a guess given the actual code
 getMove :: Code -> Code -> Move
-getMove = undefined
+getMove cc1 cc2 = Move cc2 (exactMatches cc1 cc2) (matches cc1 cc2)
 
 -- Exercise 4 -----------------------------------------
 
 isConsistent :: Move -> Code -> Bool
-isConsistent = undefined
+isConsistent (Move c1 i1 i2) c2
+  | exactMatches c1 c2 == i1 && matches c1 c2 == i2 = True
+  | otherwise = False
 
 -- Exercise 5 -----------------------------------------
 
 filterCodes :: Move -> [Code] -> [Code]
-filterCodes = undefined
+filterCodes _ [] = []
+filterCodes (Move c i1 i2) (x:xs)
+  | isConsistent (Move c i1 i2) x = x : filterCodes (Move c i1 i2) xs
+  | otherwise = filterCodes (Move c i1 i2) xs
+
+-- Data-Map realisation
+filterCodesFilter :: Move -> [Code] -> [Code]
+filterCodesFilter (Move c i1 i2) (xs) = filter (isConsistent (Move c i1 i2)) xs
 
 -- Exercise 6 -----------------------------------------
 
 allCodes :: Int -> [Code]
-allCodes = undefined
+allCodes 0 = []
+allCodes 1 = [[Red], [Green], [Blue]]
+--allCodes n = concatMap ((++) [Green]) [[Red,Green],[Green,Red],[Blue,Blue]]
+allCodes n = concatMap ((++) (allCodes n - 1)) [[Red],[Green],[Blue]]
 
 -- Exercise 7 -----------------------------------------
 
