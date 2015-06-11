@@ -82,9 +82,8 @@ filterCodesFilter (Move c i1 i2) (xs) = filter (isConsistent (Move c i1 i2)) xs
 
 allCodes :: Int -> [Code]
 allCodes 0 = []
-allCodes 1 = [[Red], [Green], [Blue]]
---allCodes n = concatMap ((++) [Green]) [[Red,Green],[Green,Red],[Blue,Blue]]
-allCodes n = concatMap ((++) (allCodes n - 1)) [[Red],[Green],[Blue]]
+allCodes 1 = [[Red],[Green],[Blue],[Yellow],[Orange],[Purple]]
+allCodes n = concatMap (\x -> [[Red]++x,[Green]++x,[Blue]++x,[Yellow]++x,[Orange]++x,[Purple]++x]) $ allCodes $ n-1
 
 -- Exercise 7 -----------------------------------------
 
