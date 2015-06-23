@@ -17,6 +17,15 @@ elementAt (xs) x
     | length(xs) >= x && x > 0 = xs !! (x - 1)
     | otherwise = error "Incorrect index"
 
--- Ex.4  Find the number of elements of a list.
+-- Ex.4 Find the number of elements of a list.
 myLength :: [a] -> Int
 myLength (xs) = length(xs)
+
+-- Ex.5 Reverse a list.
+myReverse :: [a] -> [a]
+myReverse (xs) = reverse(xs)
+
+-- Find out whether a list is a palindrome. A palindrome can be read forward or backward; e.g. (x a m a x).
+isPalindrome :: [a] -> Bool
+isPalindrome (xs) = (take(length(xs)/2)) == (reverse(drop length(xs)/2 xs))
+
