@@ -4,11 +4,19 @@ myLast [] = error "Empty list"
 myLast [x] = x
 myLast (_:xs) = myLast xs
 
+myLast' x = reverse x !! 0
+
+myLast'' x = head . reverse
+
 -- Ex.2 Find the last but one element of a list.
 myButLast :: [a] -> a
 myButLast [] = error "Empty list"
 myButLast [x,_] = x
 myButLast (_:xs) = myButLast xs
+
+myButLast' x = reverse x !! 1
+
+myButLast'' x = last . init
 
 -- Ex.3 Find the K'th element of a list. The first element in the list is number 1.
 elementAt :: [a] -> Int -> a
